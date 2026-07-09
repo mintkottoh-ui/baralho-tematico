@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <title>Baralho de Interesses</title>
+  <meta name="description" content="Escolha diária de interesses em formato de baralho rotativo." />
+  <meta name="theme-color" content="#0f111a" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Baralho" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app" id="app">
+
+    <header class="topbar">
+      <h1 class="brand">🃏 Baralho de Interesses</h1>
+      <div class="topbar-actions">
+        <button id="theme-toggle" class="icon-btn" title="Alternar tema" aria-label="Alternar tema">🌙</button>
+        <button id="nav-history" class="icon-btn" title="Histórico" aria-label="Histórico">📜</button>
+        <button id="nav-manage" class="icon-btn" title="Gerenciar baralho" aria-label="Gerenciar baralho">⚙️</button>
+      </div>
+    </header>
+
+    <main id="view-today" class="view">
+
+      <section id="today-highlight" class="today-card hidden">
+        <div class="today-card-label">Hoje</div>
+        <div class="today-card-name" id="today-name">—</div>
+        <div class="today-card-date" id="today-date"></div>
+        <button id="btn-change-today" class="btn btn-ghost">Trocar tema de hoje</button>
+      </section>
+
+      <section id="choice-section" class="hidden">
+        <div class="section-heading">
+          <h2>Escolha o tema de hoje</h2>
+          <span class="counter-pill" id="available-count">0 disponíveis</span>
+        </div>
+        <div id="choice-grid" class="card-grid"></div>
+        <p id="choice-empty" class="empty-hint hidden">Nenhum item disponível. Adicione itens ao baralho em Gerenciar.</p>
+      </section>
+
+      <section id="used-section" class="collapsible">
+        <button class="section-toggle" id="toggle-used">
+          <span>Usados neste ciclo</span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="used-grid" id="used-grid"></div>
+      </section>
+
+      <section class="smash-card">
+        <div class="smash-header">
+          <span class="smash-icon">🥊</span>
+          <div>
+            <h2>Smash</h2>
+            <p class="smash-sub">Treino competitivo — fora do ciclo</p>
+          </div>
+        </div>
+        <div class="smash-stats">
+          <div><strong id="smash-count">0</strong><span>sessões registradas</span></div>
+          <div><strong id="smash-last">—</strong><span>última sessão</span></div>
+        </div>
+        <button id="btn-smash" class="btn btn-accent-smash">Registrar sessão de Smash hoje</button>
+      </section>
+
+    </main>
+
+    <main id="view-manage" class="view hidden">
+      <div class="section-heading">
+        <h2>Gerenciar baralho</h2>
+        <button id="btn-back-from-manage" class="btn btn-ghost btn-sm">← Voltar</button>
+      </div>
+
+      <form id="add-item-form" class="add-item-form">
+        <input type="text" id="new-item-name" placeholder="Novo item (ex: Culinária)" maxlength="60" autocomplete="off" />
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </form>
+
+      <div id="manage-list" class="manage-list"></div>
+    </main>
+
+    <main id="view-history" class="view hidden">
+      <div class="section-heading">
+        <h2>Histórico</h2>
+        <button id="btn-back-from-history" class="btn btn-ghost btn-sm">← Voltar</button>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <strong id="stat-cycles">0</strong>
+          <span>ciclos completos</span>
+        </div>
+        <div class="stat-box">
+          <strong id="stat-choices">0</strong>
+          <span>escolhas feitas</span>
+        </div>
+        <div class="stat-box">
+          <strong id="stat-smash">0</strong>
+          <span>sessões de Smash</span>
+        </div>
+      </div>
+
+      <div class="history-tabs">
+        <button class="tab-btn active" data-tab="choices">Escolhas</button>
+        <button class="tab-btn" data-tab="cycles">Ciclos</button>
+        <button class="tab-btn" data-tab="smash">Smash</button>
+      </div>
+
+      <div id="history-choices" class="history-list"></div>
+      <div id="history-cycles" class="history-list hidden"></div>
+      <div id="history-smash" class="history-list hidden"></div>
+    </main>
+
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div class="modal" id="modal">
+      <p id="modal-message"></p>
+      <div class="modal-actions" id="modal-actions"></div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
